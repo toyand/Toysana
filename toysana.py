@@ -45,16 +45,29 @@ def extract_due_date(task_string):
 def make_task(task_string):
 	due_date, remainder_string = extract_due_date(task_string)
 	
+	# If we dont have a date, the date is today
 	if due_date==None:
 		due_date=datetimeFromString("today")
+	
+	# Pull out any urls to stick in the description
+	urls = []
+	task_name_array = []
+	for word in remainder_string:
+		if "http" in word:
+			urls.append(word)
+		else:
+			task_name_array.append(word)
 		
-	task_name = " ".join(remainder_string)
+	task_name = " ".join(task_name_array)
 	task_name = task_name.capitalize()
+	
+	task_notes = "\n".join(urls)
 	
 	try:
 		asana_api.create_task(task_name, 
 			asana_spaces[0]['id'], 
 			assignee=asana_user['id'],
+			notes=task_notes,
 			due_on=due_date.strftime("%Y-%m-%d"))
 		print "ADDED task: '%s'" % task_name
 	except:
