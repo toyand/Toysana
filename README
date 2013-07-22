@@ -1,0 +1,28 @@
+Toysana
+
+OVERVIEW
+
+Script that enables command line additions to Asana. Also works when connected through
+Alfred
+
+You must define the ASANA_API_KEY environment variable to contain your Asana API key
+
+REQUIREMENTS
+
+-- Python 
+-- Python 'parsedatetime' module
+   https://code.google.com/p/parsedatetime/
+-- Python Asana API module
+   http://asana.readthedocs.org/en/latest/index.html#
+
+USAGE
+
+toysana {task_string}
+
+PARAMS
+   task_string : 
+	   [Task Description] by [Date string]
+	
+	Task Description : Arbitrary text description
+	Date String : Natural language date identifier. For example
+	          today, tomorrow, friday, eom
