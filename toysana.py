@@ -53,7 +53,9 @@ def make_task(task_string):
 	urls = []
 	task_name_array = []
 	for word in remainder_string:
-		if "http" in word:
+		if "http://" in word:
+			urls.append(word)
+		elif "https://" in word:
 			urls.append(word)
 		else:
 			task_name_array.append(word)
