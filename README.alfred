@@ -1,0 +1,28 @@
+
+=== Installation
+
+- Need to have a working toysana setup.  Refer to README
+
+- Add workflow file into Alfred 2
+- Bring up Alfred and type:
+      askey API_KEY PATH_TO_TOYSANA
+ex:   askey 38geoghdlgjheohif /Users/joebleh/bin/toysana
+
+This will set up your Alfred-Toysana environment (you only need to do this once after you install the workflow).
+
+
+=== Adding a task
+
+- Bring up Alfred and type:
+      et <when>
+ex:   et tomorrow
+      et friday
+
+This captures the open URL of the currently active tab in Google Chrome and schedules it as a task in Asana.  <when> defaults to 'today' if no arguments are specified.
+
+
+(GMail keyboard shortcut users get ready...)
+
+While in an email, you can press Cmd+E to instantly Asana that email for a 'today' due date.  The quick combo to schedule the email as a task + archive becomes:
+Cmd + E and then just E
+
