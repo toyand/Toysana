@@ -71,7 +71,7 @@ def make_task(task_string):
 			assignee=asana_user['id'],
 			notes=task_notes,
 			due_on=due_date.strftime("%Y-%m-%d"))
-		print "ADDED task: '%s'" % task_name
+		print "ADDED task to %s: '%s'" % (due_date.strftime("%m-%d"),task_name)
 	except:
 		print "FAILED task add: '%s'" % task_name
 
