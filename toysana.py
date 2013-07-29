@@ -72,7 +72,7 @@ def make_task(task_string):
 			# Double check that this is a add from gmail
 			if name_split[-2].strip() == asana_user['email']:
 				# OK this is definitely it
-				task_name = name_split[0].strip()
+				task_name = "Email: "+name_split[0].strip()
 	except:
 		# It's a hack so best efforts anyway. So PASS.
 		pass
