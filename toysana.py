@@ -65,6 +65,18 @@ def make_task(task_string):
 	
 	task_notes = "\n".join(urls)
 	
+	# Here is a hack to fix tasks added straight from gmail
+	try:
+		if ((len(urls)==1) and "mail.google.com/mail" in urls[0]):
+			name_split = task_name.rsplit("-", 2)
+			# Double check that this is a add from gmail
+			if name_split[-2].strip() == asana_user['email']:
+				# OK this is definitely it
+				task_name = name_split[0].strip()
+	except:
+		# It's a hack so best efforts anyway. So PASS.
+		pass
+	
 	try:
 		asana_api.create_task(task_name, 
 			asana_spaces[0]['id'], 
