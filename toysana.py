@@ -4,7 +4,9 @@ import sys
 import parsedatetime.parsedatetime as pdt
 import datetime
 import os
+import pickle
 
+from os.path import expanduser
 from asana import asana
 from dateutil.relativedelta import *
 
@@ -76,7 +78,7 @@ def make_task(task_string):
 	except:
 		# It's a hack so best efforts anyway. So PASS.
 		pass
-	
+
 	try:
 		asana_api.create_task(task_name, 
 			asana_spaces[0]['id'], 
@@ -115,15 +117,44 @@ def datetimeFromString(s):
 
 	return dt	
 
+def generate_asana_cache(target_file):
+	global asana_spaces
+	global asana_user
+	output = open(target_file, "wb")
+
+	asana_spaces = asana_api.list_workspaces()
+	asana_user = asana_api.user_info()
+	
+	pickle.dump(asana_spaces, output)
+	pickle.dump(asana_user, output)
+
+def init_asana():
+	global asana_spaces
+	global asana_user
+	
+	home_directory = expanduser("~")
+	target_file = home_directory+"/.toysana_cache"
+	
+	try:
+		cache_file = open(target_file, "rb")
+		
+		asana_spaces = pickle.load(cache_file)
+		asana_user = pickle.load(cache_file)		
+	except:
+		generate_asana_cache(target_file)
+	
 ######## START ##########
 if len(sys.argv)==1:
 	print "Usage: toysana {task_description} [by {task_date}]"
 	sys.exit(1)
+
 try:
 	ASANA_KEY = os.environ['ASANA_API_KEY']
 	asana_api = asana.AsanaAPI(ASANA_KEY, debug=False)
-	asana_spaces = asana_api.list_workspaces()
-	asana_user = asana_api.user_info()
+	asana_spaces = []
+	asana_user = {}
+	
+	init_asana()
 except:
 	print "FAILED to add task: Could not connect to Asana"
 	print "Make sure you have defined the ASANA_API_KEY environment variable"
