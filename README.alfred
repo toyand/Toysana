@@ -26,3 +26,14 @@ This captures the open URL of the currently active tab in Google Chrome and sche
 While in an email, you can press Cmd+E to instantly Asana that email for a 'today' due date.  The quick combo to schedule the email as a task + archive becomes:
 Cmd + E and then just E
 
+- task <what when>
+This just invokes toysana with the alfred parameters as arguments
+ex: task play candy crush by monday
+
+=== Workflow HOWTO
+
+- If you make changes to the applescript, compile using:
+  osacompile -o asana.scpt asana.applescript
+ 
+The workflow references asana.scpt.  
+The '.workflow' file is a zip archive of everything else in the alfred/ folder.  You can import that directly into Alfred as per the installation instructions above.
